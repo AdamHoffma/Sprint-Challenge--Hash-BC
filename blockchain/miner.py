@@ -23,23 +23,14 @@ def proof_of_work(last_proof):
     start = timer()
     last_hash = hashlib.sha256(f'{last_proof}'.encode()).hexdigest()
     print("Searching for next proof")
-    proof = 0
+    print(f'Last Proof: {last_proof}')
+    proof = 128645742
     #  TODO: Your code here
-    i = 0
+    
 
     while valid_proof(last_hash, proof) is False:
-        proof = random.randint(-sys.maxsize, sys.maxsize)
-        i += 1
-
-        if i % 100000 == 0:
-            r = requests.get(url=node + "/last_proof")
-            data = r.json()
-            new_proof = data.get('proof')
-            if new_proof != last_proof:
-                print('Proof changed from %d to %d need to work on the latest proof' % (
-                    last_proof, new_proof))
-                
-                return -1
+        proof += 1111
+        
     print("Proof found: " + str(proof) + " in " + str(timer() - start))
     return proof
 
